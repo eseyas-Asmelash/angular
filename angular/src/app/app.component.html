@@ -1,0 +1,75 @@
+<div class="container">
+  <h1 class="m-5" id="tableLabel">Contact</h1>
+  <p *ngIf="!users"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
+  <div class="w-50 text-center">
+    <table *ngIf="users" class="table m-5">
+      <thead>
+        <tr>
+          <th>Total Users</th>
+          <th>Admin</th>
+          <th>Self Users</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ users.length }}</td>
+          <td>{{ countAdmin }}</td>
+          <td>{{ countUser }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="input-group w-25 m-5">
+    <span class="input-group-text" id="addon-wrapping"></span>
+    <input type="text" class="form-control" placeholder="name or email" aria-label="Username" aria-describedby="addon-wrapping" #inputoo>
+    <button type="button" class="btn btn-secondary" (click)="searchName(inputoo.value)">Search</button>
+  </div>
+  <div class="dropdown m-5">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" >
+      Sort by
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item" (click)="sortbyOrganization()">Organization</a></li>
+      <li><a class="dropdown-item" (click)="sortbyJob()">Job title</a></li>
+      <li><a class="dropdown-item" (click)="sortbyRole()">Role</a></li>
+      <li><a class="dropdown-item" (click)="sortbyRole()">{{ inputoo }}</a></li>
+    </ul>
+  </div>
+  <table *ngIf="users" class="table table-striped m-5">
+    <thead>
+      <tr>
+        <th scope="col">FirstName</th>
+        <th scope="col">LastName</th>
+        <th scope="col">Email</th>
+        <th scope="col">JobTitle</th>
+        <th scope="col">Org. Unit</th>
+        <th scope="col">Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td scope="row">{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.jobTitle }}</td>
+        <td>{{ user.organizationUnit }}</td>
+        <td>{{ user.role }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  var countAdmin = 0;
+  var countself = 0;
+  for (var i = 0; i < users.length; i++) {
+    if (user[i].role == "Admin")
+    countAdmin++;
+  }
+  for (var i = 0; i < users.length; i++) {
+    if (user[i].role == "Self User")
+      countself++;
+  }
+  console.log(countAdmin);
+</script>
+
